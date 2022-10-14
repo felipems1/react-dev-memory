@@ -1,6 +1,6 @@
 # Jogo da Memória
 
-Tecnologias usadas: React | Typescript | Styled Components.
+Tecnologias usadas: React | TypeScript | Styled Components.
 
 ### Instalação
 - `npm install`
