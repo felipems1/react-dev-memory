@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import * as C from './App.styles';
 
 import logoImage from './assets/devmemory_logo.png';
-import RestartIcon from './svgs/restart.svg'
 
 import { InfoItem } from './components/infoItem';
 import { Button } from './components/button';
@@ -104,9 +103,9 @@ const App = () => {
 
       setGridItems(tmpGrid);
 
-    // passo 3 - começar o jogo
-
-      setPlaying(true);
+    // passo 3 - reiniciar o jogo
+      
+      setPlaying(false);
   }
 
   const handleItemClick = (index: number) => {
@@ -118,6 +117,10 @@ const App = () => {
       }
       setGridItems(tmpGrid);
     }
+  }
+
+  const startGame = () => {
+    setPlaying(true);
   }
 
   return (
@@ -132,7 +135,8 @@ const App = () => {
           <InfoItem label='Movimentos' value={moveCount.toString()} />
         </C.InfoArea>
 
-        <Button label='Reiniciar' icon={RestartIcon} onClick={resetAndCreateGrid} />        
+        <Button label='Iniciar' onClick={startGame}/>        
+        <Button label='Reiniciar' onClick={resetAndCreateGrid} />
       
       </C.Info>
       <C.GridArea>

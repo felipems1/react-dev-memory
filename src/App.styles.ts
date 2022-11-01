@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const Info = styled.div`
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: auto; 
 
     @media (max-width: 750px) {
         margin-bottom: 50px;
@@ -29,7 +29,6 @@ export const LogoLink = styled.a`
 
 export const InfoArea = styled.div`
     width: 100%;
-    margin: 10px 0;
 
     @media (max-width: 750px) {
         display: flex;

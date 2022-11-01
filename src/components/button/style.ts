@@ -9,6 +9,7 @@ export const Container = styled.div`
     cursor: pointer;
     opacity: 1;
     transition: all ease .3s;
+    margin-bottom: 10px;
 
     &:hover {
         opacity: .8;
