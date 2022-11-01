@@ -2,7 +2,7 @@
 
 Tecnologias usadas: React | TypeScript | Styled-Components.
 
-https://user-images.githubusercontent.com/111329429/196060108-40a047cd-7c8d-4aad-9253-a50b7734470d.mp4
+https://user-images.githubusercontent.com/111329429/199334805-f206f5fc-2603-42fa-8537-7093564088c6.mp4
 
 ### Instalação
 - `npm install`
