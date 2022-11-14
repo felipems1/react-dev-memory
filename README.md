@@ -23,7 +23,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-Jogo da Memória.
+Você pode visualizar o projeto através [DESSE LINK](https://dev-memory-cfa8e.web.app).
 
 ---
 
