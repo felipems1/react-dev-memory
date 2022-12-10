@@ -1,26 +1,24 @@
-import { useEffect, useState } from 'react';
-import * as C from './App.styles';
+import { useEffect, useState } from "react";
+import * as C from "./App.styles";
 
-import logoImage from './assets/devmemory_logo.png';
+import logoImage from "./assets/devmemory_logo.png";
 
-import { InfoItem } from './components/infoItem';
-import { Button } from './components/button';
-import { GridItemType } from './types/GridItemType';
+import InfoItem from "./components/infoItem";
+import Button from "./components/button";
+import { GridItemType } from "./types/GridItemType";
 
-import { items } from './data/items'
-import { GridItem } from './components/gridItem';
-import { formatTimeElapsed } from './helpers/formatTimeElapsed';
-
+import { items } from "./data/items";
+import GridItem from "./components/gridItem";
+import { formatTimeElapsed } from "./helpers/formatTimeElapsed";
 
 const App = () => {
-
   const [playing, setPlaying] = useState<boolean>(false);
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [moveCount, setMoveCount] = useState<number>(0);
   const [showCount, setShowCount] = useState<number>(0);
   const [gridItems, setGridItems] = useState<GridItemType[]>([]);
 
-  useEffect(()=> resetAndCreateGrid(), []);
+  useEffect(() => resetAndCreateGrid(), []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,18 +27,16 @@ const App = () => {
     return () => clearInterval(timer);
   }, [playing, timeElapsed]);
 
-  // verify if opened are equal 
+  // verify if opened are equal
   useEffect(() => {
-    if(showCount === 2) {
-      let opened = gridItems.filter(item => item.shown === true);
-      if(opened.length === 2) {
-        
-        
-        if(opened[0].item === opened[1].item) {
+    if (showCount === 2) {
+      let opened = gridItems.filter((item) => item.shown === true);
+      if (opened.length === 2) {
+        if (opened[0].item === opened[1].item) {
           // v1 - if both are equal, make every "shown" permanent
           let tmpGrid = [...gridItems];
-          for(let i in tmpGrid) {
-            if(tmpGrid[i].shown) {
+          for (let i in tmpGrid) {
+            if (tmpGrid[i].shown) {
               tmpGrid[i].permanentShown = true;
               tmpGrid[i].shown = false;
             }
@@ -48,101 +44,109 @@ const App = () => {
           setGridItems(tmpGrid);
           setShowCount(0);
         } else {
-          // v2 - if they are NOT equal, close all 'shown' 
-          setTimeout(()=>{
+          // v2 - if they are NOT equal, close all 'shown'
+          setTimeout(() => {
             let tmpGrid = [...gridItems];
-          for(let i in tmpGrid) {
-            tmpGrid[i].shown = false;
-          }
-          setGridItems(tmpGrid);
-          setShowCount(0);
-          }, 1000)
+            for (let i in tmpGrid) {
+              tmpGrid[i].shown = false;
+            }
+            setGridItems(tmpGrid);
+            setShowCount(0);
+          }, 1000);
         }
 
-        setMoveCount(moveCount => moveCount + 1);
+        setMoveCount((moveCount) => moveCount + 1);
       }
     }
   }, [showCount, gridItems]);
 
   // verify if game is over
-  useEffect(() =>{
-    if(moveCount > 0 && gridItems.every(item => item.permanentShown === true)) {
+  useEffect(() => {
+    if (
+      moveCount > 0 &&
+      gridItems.every((item) => item.permanentShown === true)
+    ) {
       setPlaying(false);
     }
-  },[moveCount, gridItems])
+  }, [moveCount, gridItems]);
 
   const resetAndCreateGrid = () => {
     // passo 1 - resetar o jogo
 
-      setTimeElapsed(0);
-      setMoveCount(0);
-      setShowCount(0);
+    setTimeElapsed(0);
+    setMoveCount(0);
+    setShowCount(0);
 
     // passo 2 - criar grid
     // 2.1 - criar um grid vazio
 
-      let tmpGrid: GridItemType[] = [];
-      for(let i = 0; i < (items.length * 2); i++) {tmpGrid.push({ 
-        item: null,shown: false, permanentShown: false
-        });
-      }
-      
-      // passo 2.2 - preencher o grid
+    let tmpGrid: GridItemType[] = [];
+    for (let i = 0; i < items.length * 2; i++) {
+      tmpGrid.push({
+        item: null,
+        shown: false,
+        permanentShown: false,
+      });
+    }
 
-      for(let w = 0; w < 2; w++) {
-        for(let i = 0; i < items.length; i++) {
-          let pos = -1;
-          while(pos < 0 || tmpGrid[pos].item !== null) {
-            pos = Math.floor(Math.random() * (items.length * 2));
-          }
-          tmpGrid[pos].item = i;
+    // passo 2.2 - preencher o grid
+
+    for (let w = 0; w < 2; w++) {
+      for (let i = 0; i < items.length; i++) {
+        let pos = -1;
+        while (pos < 0 || tmpGrid[pos].item !== null) {
+          pos = Math.floor(Math.random() * (items.length * 2));
         }
+        tmpGrid[pos].item = i;
       }
+    }
 
-      // passo 2.3 - jogar no state
+    // passo 2.3 - jogar no state
 
-      setGridItems(tmpGrid);
+    setGridItems(tmpGrid);
 
     // passo 3 - reiniciar o jogo
-      
-      setPlaying(false);
-  }
+
+    setPlaying(false);
+  };
 
   const handleItemClick = (index: number) => {
-    if(playing && index !== null && showCount < 2) {
+    if (playing && index !== null && showCount < 2) {
       let tmpGrid = [...gridItems];
-      if(tmpGrid[index].permanentShown === false && tmpGrid[index].shown === false) {
+      if (
+        tmpGrid[index].permanentShown === false &&
+        tmpGrid[index].shown === false
+      ) {
         tmpGrid[index].shown = true;
         setShowCount(showCount + 1);
       }
       setGridItems(tmpGrid);
     }
-  }
+  };
 
   const startGame = () => {
     setPlaying(true);
-  }
+  };
 
   return (
     <C.Container>
       <C.Info>
-        <C.LogoLink href=''>
-          <img src={logoImage} width='200' alt='' />
+        <C.LogoLink href="">
+          <img src={logoImage} width="200" alt="" />
         </C.LogoLink>
 
         <C.InfoArea>
-          <InfoItem label='Tempo' value={formatTimeElapsed(timeElapsed)} />
-          <InfoItem label='Movimentos' value={moveCount.toString()} />
+          <InfoItem label="Tempo" value={formatTimeElapsed(timeElapsed)} />
+          <InfoItem label="Movimentos" value={moveCount.toString()} />
         </C.InfoArea>
 
-        <Button label='Iniciar' onClick={startGame}/>        
-        <Button label='Reiniciar' onClick={resetAndCreateGrid} />
-      
+        <Button label="Iniciar" onClick={startGame} />
+        <Button label="Reiniciar" onClick={resetAndCreateGrid} />
       </C.Info>
       <C.GridArea>
         <C.Grid>
-          {gridItems.map((item, index)=>(
-            <GridItem 
+          {gridItems.map((item, index) => (
+            <GridItem
               key={index}
               item={item}
               onClick={() => handleItemClick(index)}
@@ -151,7 +155,7 @@ const App = () => {
         </C.Grid>
       </C.GridArea>
     </C.Container>
-  )
-}
+  );
+};
 
 export default App;
