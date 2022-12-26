@@ -23,8 +23,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-Você pode visualizar o projeto através [DESSE LINK](https://dev-memory-cfa8e.web.app).
+Você pode visualizar o projeto através [DESSE LINK](https://app-dev-memory.netlify.app).
 
 ---
 
-[Link do meu perfil no Linkedin.](https://www.linkedin.com/in/felipe-moises-4a1b58248/) 
+[Link do meu perfil no Linkedin.](https://www.linkedin.com/in/felipe-moises-4a1b58248/)
